@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>All books</title>
+</head>
+
+<body>
+	{% if user.is_authenticated %}
+	<div>
+		<h2>All books Records</h2>
+		{{all_bookSerializer}}
+	</div>
+	{% else %}
+<div>
+	<form action="{% url 'index' %}" method="post">
+		{% csrf_token %}
+		<input type="text" name="username" placeholder="username"><br>
+		<input type="password" name="password" placeholder="password">
+		<button type="submit">Login</button>
+
+	</form>
+</div>
+{% endif %}
+</body>
+
+</html>

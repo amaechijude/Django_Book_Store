@@ -1,17 +1,39 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http.response import JsonResponse
+
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 # Create your views here.
 from rest_framework.parsers import JSONParser
 from recordApp.models import Books, Customers, Orders, OrderItems, Payments
 from recordApp.serializers import BookSerializer, CustomerSerializer, OrderSerializer, OrderItemSerializer, PaymentSerializer
+
+
+def index(request):
+    all_books = Books.objects.all()
+    all_bookSerializer = BookSerializer(all_books, many=True).data
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+		# Authenticate
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, "You Have Been Logged In!")
+            return redirect('index')
+        else:
+            messages.success(request, "There Was An Error Logging In, Please Try Again...")
+            return redirect('index')
+    else:
+        return render(request, 'index.html', {'all_bookSerializer':all_bookSerializer})
 
 @csrf_exempt
 def get_all_books(request, id=0):
     if request.method == 'GET':
         all_books = Books.objects.all()
         all_bookSerializer = BookSerializer(all_books, many=True)
-        return JsonResponse(all_bookSerializer.data, safe=False)
+        return JsonResponse(all_bookSerializer.data[0], safe=False)
     elif request.method == 'POST':#(admin only) to be modified later
         book_data = JSONParser().parse(request)
         book_dataSerializer = BookSerializer(data=book_data)
@@ -69,4 +91,3 @@ def make_payments(request):
         pay_dataSerializer.save()
         return JsonResponse("Paid succefully", safe=False)
     return JsonResponse("Payment error", safe=False)
-    
