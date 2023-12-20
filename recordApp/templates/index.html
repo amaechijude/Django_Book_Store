@@ -9,9 +9,35 @@
 
 <body>
 	{% if user.is_authenticated %}
+	<a href="{% url 'logout_user' %}">Logout</a>
 	<div>
-		<h2>All books Records</h2>
-		{{all_bookSerializer}}
+		<h2>All books Records</h2><br>
+
+		 <br>
+		<div>
+		<table>
+			<thead>
+				<th>Book Title</th>
+				<th>Author</th>
+				<th>Price</th>
+				<th>Stock</th>
+				<th>ID</th>
+			</thead>
+		<tbody>
+			{% if all_bookSerializer %}
+			{% for book in all_bookSerializer %}
+			<tr>
+				<td>{{ book.Title }}</td>
+				<td>{{ book.Author }}</td>
+				<td>${{ book.Price }}</td>
+				<td>{{ book.Stock }}</td>
+				<td>{{ book.BookID }}</td>
+			</tr>
+			{% endfor %}
+			{% endif %}
+		</tbody>
+		</table>
+				</div>
 	</div>
 	{% else %}
 <div>

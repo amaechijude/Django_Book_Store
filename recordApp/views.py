@@ -9,10 +9,14 @@ from rest_framework.parsers import JSONParser
 from recordApp.models import Books, Customers, Orders, OrderItems, Payments
 from recordApp.serializers import BookSerializer, CustomerSerializer, OrderSerializer, OrderItemSerializer, PaymentSerializer
 
+def logout_user(request):
+	logout(request)
+	messages.success(request, "You Have Been Logged Out...")
+	return redirect('index')
 
 def index(request):
-    all_books = Books.objects.all()
-    all_bookSerializer = BookSerializer(all_books, many=True).data
+    all_bookSerializer = Books.objects.all()
+    #all_bookSerializer = BookSerializer(all_books, many=True).data
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
