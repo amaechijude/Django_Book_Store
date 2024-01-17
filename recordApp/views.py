@@ -37,7 +37,7 @@ def get_all_books(request, id=0):
     if request.method == 'GET':
         all_books = Books.objects.all()
         all_bookSerializer = BookSerializer(all_books, many=True)
-        return JsonResponse(all_bookSerializer.data[0], safe=False)
+        return JsonResponse(all_bookSerializer.data, safe=False)
     elif request.method == 'POST':#(admin only) to be modified later
         book_data = JSONParser().parse(request)
         book_dataSerializer = BookSerializer(data=book_data)
