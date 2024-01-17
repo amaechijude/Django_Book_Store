@@ -1,12 +1,24 @@
 from django.db import models
 
 # Create your models here.
+
+class Authors(models.Model):
+    Authors_Name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return (f"{self.Authors_Name}")
+
+
 class Books(models.Model):
     BookID = models.AutoField(primary_key=True)
     Title = models.CharField(max_length=100)
-    Author = models.CharField(max_length=100)
+    Authors_Name = models.ForeignKey(Authors, on_delete=models.CASCADE)
     Price = models.FloatField()
     Stock = models.IntegerField()
+    
+    def __str__(self):
+        return (f"{self.Title}")
+
 
 class Customers(models.Model):
     CustomerID = models.AutoField(primary_key=True)
@@ -14,6 +26,9 @@ class Customers(models.Model):
     Email = models.EmailField()
     PasswordHash = models.CharField(max_length=100)#to be modified later
     IsAdmin = models.CharField(max_length=100)#to be modified later
+    
+    def __str__(self):
+        return (f"{self.Name}")
 
 class Orders(models.Model):
     OrderID = models.AutoField(primary_key=True)
