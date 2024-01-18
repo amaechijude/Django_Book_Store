@@ -5,6 +5,7 @@ from django.http.response import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 # Create your views here.
+from .forms import RegisterForm, AddRecordForm, AuthorForm
 from rest_framework.parsers import JSONParser
 from recordApp.models import Books, Customers, Orders, OrderItems, Payments
 from recordApp.serializers import BookSerializer, CustomerSerializer, OrderSerializer, OrderItemSerializer, PaymentSerializer
@@ -31,6 +32,34 @@ def index(request):
             return redirect('index')
     else:
         return render(request, 'index.html', {'all_bookSerializer':all_bookSerializer})
+        
+def addbook(request):
+    if request.method == 'POST':
+        form = AddRecordForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.info(request, "Successfully Added Book")
+            return redirect('index')
+        else:
+            form = AddRecordForm()
+            messages.info(request, "{Error: Could not Add Book}")
+            return render(request, 'addbook.html', {"form": form})
+    form = AddRecordForm()
+    return render(request, 'addbook.html', {"form": form})
+
+def authoradd(request):
+    if request.method == 'POST':
+        form = AuthorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.info(request, "Successfully Added Author")
+            return redirect('addbook')
+        else:
+            form = AuthorForm()
+            messages.info(request, "{Error: Could not Add Author}")
+            return render(request, 'authoradd.html', {"form": form})
+    form = AuthorForm()
+    return render(request, 'authoradd.html', {"form": form})
 
 @csrf_exempt
 def get_all_books(request, id=0):
