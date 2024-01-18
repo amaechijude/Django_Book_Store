@@ -61,6 +61,35 @@ def authoradd(request):
     form = AuthorForm()
     return render(request, 'authoradd.html', {"form": form})
 
+def records(request, pk):
+    if request.user.is_authenticated:
+        book_record = Books.objects.get(BookID=pk)
+        return render(request, 'records.html', {"book_record": book_record})
+    else:
+        messages.info(request, "You need to be logged in")
+        return redirect('index')
+
+def delete_book(request, pk):
+    if request.user.is_authenticated and request.user.is_staff:
+        book_record = Books.objects.get(BookID=pk)
+        book_record.delete()
+        messages.info(request, "Successfully Deleted")
+        return redirect('index')
+    else:
+        messages.info(request, "{Error: Could not delete. You are not an Admin}")
+        return redirect('index')
+
+def update_book(request, pk):
+    if request.user.is_authenticated:
+        current_book = Books.objects.get(BookID=pk)
+        form = AddRecordForm(request.POST or None, instance=current_book)
+        if form.is_valid():
+            form.save()
+            messages.info(request, "Successfully Updated Book")
+            return redirect('index')
+        else:
+
+
 @csrf_exempt
 def get_all_books(request, id=0):
     if request.method == 'GET':
