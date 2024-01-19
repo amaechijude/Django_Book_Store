@@ -87,7 +87,9 @@ def update_book(request, pk):
             form.save()
             messages.info(request, "Successfully Updated Book")
             return redirect('index')
-        else:
+        return render(request, 'update_book.html', {"form": form})
+    messages.info(request, "You need to be logged in")
+    return redirect('index')
 
 
 @csrf_exempt
