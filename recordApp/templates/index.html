@@ -61,11 +61,11 @@
         <a href="{% url 'authoradd' %}" class="text-center">Add Author</a>
     </div>
     {% else %}
-    <div class="text-center" style="margin-top:50%">
+    <div class="text-center" style="margin-top:10px;">
         <form action="{% url 'index' %}" method="post">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="username"><br>
-            <input type="password" name="password" placeholder="password">
+            <p><input type="text" name="username" placeholder="username"></p><br>
+        <p><input type="password" name="password" placeholder="password"></p>
             <button type="submit">Login</button>
 
         </form>
