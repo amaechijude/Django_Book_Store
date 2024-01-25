@@ -1,27 +1,27 @@
 from rest_framework import serializers
-from recordApp.models import Books, Customers, Orders, OrderItems, Payments
+from recordApp.models import Book, Customer, Order, OrderItem, Payment
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Books
+        model = Book
         fields = '__all__'
 
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Customers
+        model = Customer
         fields = '__all__'
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Orders
+        model = Order
         fields = '__all__' 
 
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = OrderItems
+        model = OrderItem
         fields = '__all__'
         
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = OrderItems
+        model = OrderItem
         fields = '__all__'

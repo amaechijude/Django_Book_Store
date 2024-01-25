@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import Books, Authors
+from .models import Book, Author
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField()
@@ -15,18 +15,18 @@ class RegisterForm(UserCreationForm):
     
 class AddRecordForm(forms.ModelForm):
     Title = forms.CharField(required=True)
-    Authors_Name = forms.ModelChoiceField(queryset=Authors.objects.all())
+    Author_Name = forms.ModelChoiceField(queryset=Author.objects.all())
     Price = forms.CharField(required=True)
     Stock = forms.CharField(required=True)
     
     class Meta:
-        model = Books
+        model = Book
         exclude = ('BookID',)
 
 
 class AuthorForm(forms.ModelForm):
-    Authors_Name = forms.CharField(required=True)
+    Author_Name = forms.CharField(required=True)
 
     class Meta:
-        model = Authors
+        model = Author
         fields = '__all__'
