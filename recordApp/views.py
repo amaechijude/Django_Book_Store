@@ -10,14 +10,41 @@ from rest_framework.parsers import JSONParser
 from recordApp.models import Books, Customers, Orders, OrderItems, Payments
 from recordApp.serializers import BookSerializer, CustomerSerializer, OrderSerializer, OrderItemSerializer, PaymentSerializer
 
+
+#Views
+#frontend signup
+def signup(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            #Authnenticate and sign in
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, "You Have Successfully Signed Up! Welcome!")
+            return redirect('index')
+        else:
+            form = RegisterForm()
+            messages.info(request, "{Error: Could not Sign Up}")
+            form_content = {"form": form}
+            return render(request, 'signup.html', form_content)
+        
+    form = RegisterForm()
+    messages.info(request, "Welcome to Sign Up page")
+    form_content = {"form": form}
+    return render(request, 'signup.html', form_content)
+
+#logout
 def logout_user(request):
 	logout(request)
 	messages.success(request, "You Have Been Logged Out...")
 	return redirect('index')
 
+#Frontend homepage
 def index(request):
     all_bookSerializer = Books.objects.all()
-    #all_bookSerializer = BookSerializer(all_books, many=True).data
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
