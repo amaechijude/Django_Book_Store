@@ -1,8 +1,8 @@
 from pathlib import Path
 
 def rename_text(file_name, s_word, new_word):
-    #file name
     try:
+        #file name
         file = Path(file_name)
         #Convert both the old and new words into lists
         word_list = s_word.split(",")
