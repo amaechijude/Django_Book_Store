@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add book</title>                                                                         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cm
+    <title>Add book</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cm
     DA6j6gD" crossorigin="anonymous">
 </head>
 
@@ -17,7 +19,8 @@
             {{ message }}
             {% endfor %}
         </div>
-        <br><hr><br>
+        <br>
+        <hr><br>
         <div class="text-center" style="margin-left:25%; margin-right:25%">
             <div class="card">
                 <div class="card-header">
@@ -28,7 +31,7 @@
                 <div class="card-body">
 
                     <p class="card-text">
-                        <strong>Author: </strong>{{ book_record.Authors_Name }}
+                        <strong>Author: </strong>{{ book_record.Author_Name }}
                     </p>
 
                     <p class="card-text">
@@ -44,20 +47,25 @@
                     </p>
                 </div>
             </div>
-            <br><hr><br>
+            <br>
+            <hr><br>
             <div class="text-center">
                 <a href="{% url 'delete_book' book_record.BookID %}">Delete Book</a>
             </div>
-            <br><hr><br>
-	    <div class="text-center">
+            <br>
+            <hr><br>
+            <div class="text-center">
                 <a href="{% url 'update_book' book_record.BookID %}">Update</a>
             </div>
-            <br><hr><br>
+            <br>
+            <hr><br>
             <div class="text-center">
                 <a href="{% url 'index' %}">Home</a>
             </div>
 
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-        </body>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+                crossorigin="anonymous"></script>
+</body>
 
-    </html>
+</html>

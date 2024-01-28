@@ -1,21 +1,24 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
+
 
 # Create your models here.
 
 class Author(models.Model):
-    Authors_Name = models.CharField(max_length=100)
+    Author_Name = models.CharField(max_length=100)
 
     def __str__(self):
-        return (f"{self.Authors_Name}")
+        return (f"{self.Author_Name}")
 
 
 class Book(models.Model):
     BookID = models.AutoField(primary_key=True)
     Title = models.CharField(max_length=100)
-    Authors_Name = models.ForeignKey(Author, on_delete=models.CASCADE)
+    Author_Name = models.ForeignKey(Author, on_delete=models.CASCADE)
     Price = models.FloatField()
     Stock = models.IntegerField()
+    Date_Added = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return (f"{self.Title}")

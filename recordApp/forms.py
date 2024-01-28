@@ -16,12 +16,12 @@ class RegisterForm(UserCreationForm):
 class AddRecordForm(forms.ModelForm):
     Title = forms.CharField(required=True)
     Author_Name = forms.ModelChoiceField(queryset=Author.objects.all())
-    Price = forms.CharField(required=True)
-    Stock = forms.CharField(required=True)
+    Price = forms.FloatField(required=True)
+    Stock = forms.IntegerField(required=True)
     
     class Meta:
         model = Book
-        exclude = ('BookID',)
+        exclude = ('BookID', 'Date_Added')
 
 
 class AuthorForm(forms.ModelForm):
